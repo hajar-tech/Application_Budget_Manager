@@ -5,6 +5,8 @@ import com.budgetmanager.backend.Repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TransactionService {
 
@@ -15,5 +17,9 @@ public class TransactionService {
     public Transaction AjouterTransaction(Transaction transaction){
         return transactionRepository.save(transaction);
     }
+    public List<Transaction> getAllTransactions() {
+        return transactionRepository.findAll();
+    }
+
 
 }
