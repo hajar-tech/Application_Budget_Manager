@@ -25,4 +25,9 @@ public class CategorieController {
         return ResponseEntity.ok(categoryService.createCategory(category));
     }
 
+    @GetMapping("/{id}")
+    public Category getCategoryById(@PathVariable long id) {
+        return categoryService.getCategoryById(id);
+    }
+
 }

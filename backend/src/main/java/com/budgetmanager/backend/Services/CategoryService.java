@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class CategoryService {
+    final CategoryRepository categoryRepository;
     @Autowired
-    private CategoryRepository categoryRepository;
-
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
@@ -20,4 +22,19 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
+    public Category getCategoryById(long id) {
+        return  categoryRepository.findById(id).orElse(null);
+    }
+
+    public void deleteCategory(Long id) {
+        Category existing = categoryRepository.findById(id).orElse(null);
+        if (existing != null) {
+            categoryRepository.delete(existing);
+        }
+             else {
+                 System.out.println("Category not found");
+        }
+
+
+    }
 }
