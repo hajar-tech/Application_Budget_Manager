@@ -2,7 +2,8 @@ package com.budgetmanager.backend.Models;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 @Entity
 public class Budget {
@@ -20,6 +21,57 @@ public class Budget {
     private Category category;
 
 
+     //constructors
+
+    public Budget() {}
+
+    public Budget(int limitBudget, Date startDate, Date endDate, Category category) {
+        this.limitBudget = limitBudget;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.category = category;
+    }
+
+    //getters && setters
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getLimitBudget() {
+        return limitBudget;
+    }
+
+    public void setLimitBudget(int limitBudget) {
+        this.limitBudget = limitBudget;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
