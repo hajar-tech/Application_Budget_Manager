@@ -44,5 +44,15 @@ public class CategorieController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category) {
+        try {
+            Category updatedCategory = categoryService.updateCategory(id, category);
+            return ResponseEntity.ok(updatedCategory); // retourne 200 OK avec la catégorie mise à jour
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // retourne 404 si non trouvée
+        }
+    }
+
 
 }

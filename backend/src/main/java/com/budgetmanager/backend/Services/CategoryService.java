@@ -34,6 +34,20 @@ public class CategoryService {
         categoryRepository.delete(existing);
     }
 
+    public Category updateCategory(Long id, Category updatedCategory) {
+        Category category = getCategoryById(id);
+        if (category != null) {
+            // Mettre à jour les champs
+            category.setName(updatedCategory.getName());
+            category.setType(updatedCategory.getType());
+            return categoryRepository.save(category);
+        }
+
+        else {
+            throw new RuntimeException("Catégorie non trouvée avec l'ID : " + id);
+        }
+    }
+
 }
 
 
