@@ -16,11 +16,11 @@ public class CategorieController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping
+    @GetMapping("/DisplayCategory")
     public List<Category> getAllCategories() {
         return categoryService.getAllCategories();
     }
-    @PostMapping
+    @PostMapping("/AddCategory")
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
         return ResponseEntity.ok(categoryService.createCategory(category));
     }
