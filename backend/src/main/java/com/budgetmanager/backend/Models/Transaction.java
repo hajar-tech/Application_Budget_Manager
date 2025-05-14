@@ -1,5 +1,7 @@
 package com.budgetmanager.backend.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -14,9 +16,10 @@ public class Transaction {
     private String type; //revenu ou déponse
 
 
-    @SuppressWarnings("JpaAttributeTypeInspection")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
+    @JsonManagedReference
+
     private Category category;
 
     public Transaction(Double montant, LocalDate date, String description, String type, Category category) {
