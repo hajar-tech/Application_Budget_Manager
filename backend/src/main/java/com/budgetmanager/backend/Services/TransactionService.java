@@ -1,6 +1,9 @@
 package com.budgetmanager.backend.Services;
 
+import com.budgetmanager.backend.Dto.TransactionDto;
+import com.budgetmanager.backend.Models.Category;
 import com.budgetmanager.backend.Models.Transaction;
+import com.budgetmanager.backend.Repositories.CategoryRepository;
 import com.budgetmanager.backend.Repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,16 +13,29 @@ import java.util.Optional;
 
 @Service
 public class TransactionService {
-
     private final TransactionRepository transactionRepository;
-
+    private final CategoryRepository categoryRepository;
 @Autowired
-    public TransactionService(TransactionRepository transactionRepository) {
+    public TransactionService(TransactionRepository transactionRepository, CategoryRepository categoryRepository) {
         this.transactionRepository = transactionRepository;
-
+        this.categoryRepository = categoryRepository;
     }
 
-    public Transaction AjouterTransaction(Transaction transaction) {
+    public Transaction addTransaction(TransactionDto dto) {
+        Optional<Category> categoryOptional = categoryRepository.findById(dto.getCategoryId());
+
+        if (categoryOptional.isEmpty()) {
+            throw new RuntimeException("Category not found with ID: " + dto.getCategoryId());
+        }
+
+        Category category = categoryOptional.get();
+
+        Transaction transaction = new Transaction();
+        transaction.setMontant(dto.getMontant());
+        transaction.setDate(dto.getDate());
+        transaction.setDescription(dto.getDescription());
+        transaction.setType(dto.getType());
+        transaction.setCategory(category);
 
         return transactionRepository.save(transaction);
     }
@@ -32,24 +48,6 @@ public class TransactionService {
         return transactionRepository.findById(id).orElse(null);
     }
 
-    public Transaction updateTransaction(Long id, Transaction updatedTransaction) {
-        Optional<Transaction> optionalTransaction = transactionRepository.findById(id);
-
-        if (optionalTransaction.isEmpty()) {
-            System.out.println("Transaction with ID " + id + " not found");
-            return null;
-        }
-
-        Transaction transaction = optionalTransaction.get();
-        transaction.setMontant(updatedTransaction.getMontant());
-        transaction.setDate(updatedTransaction.getDate());
-        transaction.setDescription(updatedTransaction.getDescription());
-        transaction.setType(updatedTransaction.getType());
-        transaction.setCategory(updatedTransaction.getCategory());
-
-        return transactionRepository.save(transaction);
-    }
-
     public boolean deleteTransaction(Long id) {
         if (transactionRepository.existsById(id)) {
             transactionRepository.deleteById(id);
@@ -57,5 +55,4 @@ public class TransactionService {
         }
         return false;
     }
-
 }
