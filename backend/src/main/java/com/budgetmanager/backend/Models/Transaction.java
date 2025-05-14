@@ -19,7 +19,7 @@ public class Transaction {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Transaction(Double montant, LocalDate date, String description, String type, Categorie categorie) {
+    public Transaction(Double montant, LocalDate date, String description, String type, Category category) {
         this.montant = montant;
         this.date = date;
         this.description = description;
