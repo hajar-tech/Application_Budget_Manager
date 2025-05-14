@@ -13,11 +13,11 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    @PostMapping
+    @PostMapping()
     public Transaction AjouterTransaction(@RequestBody Transaction transaction){
         return transactionService.AjouterTransaction(transaction);
     }
-    @GetMapping
+    @GetMapping()
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();
     }
