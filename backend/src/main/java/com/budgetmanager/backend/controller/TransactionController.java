@@ -2,7 +2,6 @@ package com.budgetmanager.backend.controller;
 
 import com.budgetmanager.backend.Models.Transaction;
 import com.budgetmanager.backend.Services.TransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,22 +10,27 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/transaction")
 public class TransactionController {
-    @Autowired
-    private TransactionService transactionService;
 
-    @PostMapping("/AddTransaction")
+    private final TransactionService transactionService;
+
+
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
+
+    @PostMapping("/addTransaction")
     public Transaction AjouterTransaction(@RequestBody Transaction transaction){
         return transactionService.AjouterTransaction(transaction);
     }
-    @GetMapping("/DisplayTransaction")
+
+    @GetMapping()
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Transaction> getTransactionById(@PathVariable Long id) {
-        return transactionService.getTransactionById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public Transaction getTransactionById(@PathVariable Long id) {
+        return transactionService.getTransactionById(id);
     }
 
     @PutMapping("/{id}")
@@ -45,4 +49,5 @@ public class TransactionController {
         }
         return ResponseEntity.notFound().build();
     }
+
 }
