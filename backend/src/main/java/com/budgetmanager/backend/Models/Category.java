@@ -1,5 +1,6 @@
 package com.budgetmanager.backend.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class Category {
 
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Transaction> transactions;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
