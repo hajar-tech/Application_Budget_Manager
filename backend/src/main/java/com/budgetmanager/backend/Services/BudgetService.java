@@ -1,6 +1,8 @@
 package com.budgetmanager.backend.Services;
 
 import com.budgetmanager.backend.Dto.BudgetDto;
+import com.budgetmanager.backend.Dto.BudgetResponseDto;
+import com.budgetmanager.backend.Dto.CategoryDto;
 import com.budgetmanager.backend.Models.Budget;
 import com.budgetmanager.backend.Models.Category;
 import com.budgetmanager.backend.Repositories.BudgetRepository;
@@ -8,7 +10,9 @@ import com.budgetmanager.backend.Repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BudgetService {
@@ -40,4 +44,25 @@ public class BudgetService {
 
         return budgetRepository.save(budget);
     }
+
+
+
+    public List<BudgetResponseDto> getAllBudgets() {
+        return budgetRepository.findAll().stream().map(budget -> {
+            Category category = budget.getCategory();
+            return new BudgetResponseDto(
+
+                    budget.getLimitBudget(),
+                    budget.getStartDate(),
+                    budget.getEndDate(),
+                    new CategoryDto(
+                            category.getName(),
+                            category.getType()
+                    )
+
+            );
+        }).collect(Collectors.toList());
+    }
+
+
 }

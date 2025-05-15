@@ -72,6 +72,8 @@ public class Category {
 
     public Category() {}
 
+    public Category(String name, String type) {}
+
     public Category(String name, String type, List<Transaction> transactions, List<Budget> budgets) {
         this.name = name;
         this.type = type;
