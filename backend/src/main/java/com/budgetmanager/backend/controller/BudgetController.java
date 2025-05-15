@@ -1,8 +1,10 @@
 package com.budgetmanager.backend.controller;
 
+import com.budgetmanager.backend.Dto.BudgetDto;
 import com.budgetmanager.backend.Models.Budget;
 import com.budgetmanager.backend.Services.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +23,8 @@ public class BudgetController {
     }
 
     @PostMapping("/AddBudget")
-    public String addBudget(Budget budget) {
-        budgetService.addBudget(budget);
-        return ("your budget is added successfully");
+    public ResponseEntity<Budget> createBudget(@RequestBody BudgetDto budgetDto) {
+        Budget createdBudget = budgetService.addBudget(budgetDto);
+        return ResponseEntity.ok(createdBudget);
     }
 }

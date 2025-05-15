@@ -1,5 +1,6 @@
 package com.budgetmanager.backend.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -18,6 +19,7 @@ public class Budget {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonBackReference(value = "budget-category")
     private Category category;
 
 
