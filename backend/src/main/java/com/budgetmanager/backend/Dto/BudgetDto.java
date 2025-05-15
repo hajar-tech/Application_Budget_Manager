@@ -1,4 +1,13 @@
 package com.budgetmanager.backend.Dto;
 
-public record BudgetDto (){
+import java.sql.Date;
+
+public record BudgetDto (
+        int limitBudget,
+         Date startDate,
+         Date endDate,
+        long idCategory)
+{
+
+
 }

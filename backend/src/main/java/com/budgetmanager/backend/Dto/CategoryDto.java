@@ -1,4 +1,4 @@
 package com.budgetmanager.backend.Dto;
 
-public record CategoryDto () {
+public record CategoryDto (String name, String type) {
 }
