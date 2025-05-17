@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
-class Category {
+export interface Category {
+  id: number;
+  name: string;
+  type: 'income' | 'expense';
 }
 
 @Injectable({
@@ -10,7 +13,7 @@ class Category {
 })
 export class CategoryService {
 
-  private api = 'http://localhost/8080/api/transactions';
+  private api = 'http://localhost/8080/api/category';
 
   constructor( private http: HttpClient ) { }
 
@@ -18,5 +21,5 @@ export class CategoryService {
     return this.http.get<Category[]>(this.api);
   }
   addTransaction(category: Category):Observable<Category>{
-    return this.http.post(this.api,category);
+    return this.http.post<Category>(this.api,category);
   }}
