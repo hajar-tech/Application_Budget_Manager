@@ -1,15 +1,16 @@
 package com.budgetmanager.backend.Services;
 
-
 import com.budgetmanager.backend.Models.Category;
 import com.budgetmanager.backend.Repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class CategoryService {
-    final CategoryRepository categoryRepository;
+
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public CategoryService(CategoryRepository categoryRepository) {
@@ -37,18 +38,13 @@ public class CategoryService {
     public Category updateCategory(Long id, Category updatedCategory) {
         Category category = getCategoryById(id);
         if (category != null) {
-            // Mettre à jour les champs
             category.setName(updatedCategory.getName());
             category.setType(updatedCategory.getType());
             return categoryRepository.save(category);
-        }
-
-        else {
-            throw new RuntimeException("Catégorie non trouvée avec l'ID : " + id);
+        } else {
+            throw new RuntimeException("Category not found with ID: " + id);
         }
     }
-
-
 }
 
 
