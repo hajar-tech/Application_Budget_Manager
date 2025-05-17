@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @RequestMapping("/api/v1/budgets")
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class BudgetController {
 
     final BudgetRepository budgetRepository;
