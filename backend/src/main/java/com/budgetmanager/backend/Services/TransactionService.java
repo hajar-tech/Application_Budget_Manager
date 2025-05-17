@@ -9,26 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TransactionService {
+
     private final TransactionRepository transactionRepository;
     private final CategoryRepository categoryRepository;
-@Autowired
+
+    @Autowired
     public TransactionService(TransactionRepository transactionRepository, CategoryRepository categoryRepository) {
         this.transactionRepository = transactionRepository;
         this.categoryRepository = categoryRepository;
     }
 
     public Transaction addTransaction(TransactionDto dto) {
-        Optional<Category> categoryOptional = categoryRepository.findById(dto.getCategoryId());
-
-        if (categoryOptional.isEmpty()) {
-            throw new RuntimeException("Category not found with ID: " + dto.getCategoryId());
-        }
-
-        Category category = categoryOptional.get();
+        Category category = categoryRepository.findById(dto.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found with ID: " + dto.getCategoryId()));
 
         Transaction transaction = new Transaction();
         transaction.setMontant(dto.getMontant());
