@@ -17,7 +17,7 @@ export interface Transaction {
   providedIn: 'root'
 })
 export class TransactionService {
-  private api = 'http://localhost/8080/api/v1/transaction';
+  private api = 'http://localhost:8080/api/v1/transaction';
 
   constructor( private http: HttpClient ) { }
 
@@ -27,4 +27,6 @@ export class TransactionService {
   addTransaction(transaction:Transaction):Observable<Transaction>{
     return this.http.post<Transaction>(this.api, transaction);
   }
+
+
 }

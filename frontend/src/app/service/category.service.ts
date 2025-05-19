@@ -13,13 +13,13 @@ export interface Category {
 })
 export class CategoryService {
 
-  private api = 'http://localhost/8080/api/category';
+  private api = 'http://localhost:8080/api/category';
 
   constructor( private http: HttpClient ) { }
 
-  getTransactions():Observable<Category[]>{
+  getCategory():Observable<Category[]>{
     return this.http.get<Category[]>(this.api);
   }
-  addTransaction(category: Category):Observable<Category>{
+  addCategory(category: Category):Observable<Category>{
     return this.http.post<Category>(this.api,category);
   }}

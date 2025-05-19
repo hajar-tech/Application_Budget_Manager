@@ -1,6 +1,13 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { ApplicationConfig } from '@angular/core';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import {AppComponent} from './app/app.component';
+import {bootstrapApplication} from '@angular/platform-browser';
+// ✅ Add this import
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(withFetch()) // ✅ active l’utilisation de fetch
+  ]
+});
+

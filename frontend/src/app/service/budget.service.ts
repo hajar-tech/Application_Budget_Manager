@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 
-interface Budget {
+export interface Budget {
   id?: number;
   limitBudget: number;
   startDate: string;
@@ -18,13 +18,13 @@ interface Budget {
   providedIn: 'root'
 })
 export class BudgetService {
-  private api = 'http://localhost/8080/api/v1/budgets';
+  private api = 'http://localhost:8080/api/v1/budgets';
 
   constructor( private http: HttpClient ) { }
 
-  getTransactions():Observable<Budget[]>{
+  getBudget():Observable<Budget[]>{
     return this.http.get<Budget[]>(this.api);
   }
-  addTransaction(budget:Budget):Observable<Budget>{
+  addBudget(budget:Budget):Observable<Budget>{
     return this.http.post<Budget>(this.api, budget);
   }}

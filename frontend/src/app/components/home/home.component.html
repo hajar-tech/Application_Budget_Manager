@@ -1,1 +1,29 @@
-<p>home works!</p>
+<div class="p-6 space-y-6">
+
+  <div>
+    <h2 class="text-2xl font-bold mb-2">Budgets</h2>
+    <div *ngFor="let budget of budgets" class="bg-green-100 p-4 rounded shadow">
+      <p><strong>Amount:</strong> {{ budget.limitBudget }} €</p>
+      <p><strong>Period:</strong> {{ budget.startDate }} → {{ budget.endDate }}</p>
+      <p><strong>Category:</strong> {{ budget.category?.name }}</p>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-bold mb-2">Categories</h2>
+    <div *ngFor="let category of categories" class="bg-blue-100 p-3 rounded shadow">
+      {{ category.name }} ({{ category.type }})
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-bold mb-2">Transactions</h2>
+    <div *ngFor="let transaction of transactions" class="bg-yellow-100 p-4 rounded shadow">
+      <p><strong>{{ transaction.type }}:</strong> {{ transaction.montant }} €</p>
+      <p><strong>Description:</strong> {{ transaction.description }}</p>
+      <p><strong>Date:</strong> {{ transaction.date }}</p>
+      <p><strong>Category:</strong> {{ transaction.category?.name }}</p>
+    </div>
+  </div>
+
+</div>
